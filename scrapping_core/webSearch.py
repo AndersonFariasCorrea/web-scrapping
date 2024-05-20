@@ -8,7 +8,7 @@ class WebSearch:
     def search(self, query):
         results = []
         for site in self.__sites:
-            if site == 'Kabum':
+            if site == 'Oficinadosbits':
                 continue
             page = Scrap(site)
             page = page.get_instance()
