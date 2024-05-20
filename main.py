@@ -11,22 +11,22 @@ def index():
 
 @app.route("/api", methods=['GET', 'POST'])
 def api():
-    model_search = request.args.get('busca')
+    busca = request.args.get('busca')
     sites = request.args.get('sites')
 
-    if not model_search:
+    if not busca:
         return jsonify({"status": 400, "msg": "formulário inválido"})
 
     if not sites:
-        sites = ['Kabum', 'Pichau']
+        sites = ['Kabum', 'Oficinadosbits']
 
     web = scrappingCore.WebSearch(sites)
 
-    res = web.search(model_search)
-    if res[0].content:
-        return jsonify(res[0].content)
+    res = web.search(busca.replace(" ", "-"))
+    if len(res) >= 1:
+        return jsonify(res)
     else:
-        return jsonify({"status": 404, "msg": "not found"})
+        return jsonify({"status": 404, "msg": "not found"}), 404
 
 
 def main():

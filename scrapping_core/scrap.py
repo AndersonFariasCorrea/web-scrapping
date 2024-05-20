@@ -1,6 +1,6 @@
-import scrapping_core.kabum
-import sys
 import importlib
+import scrapping_core.kabum
+import scrapping_core.oficinadosbits
 
 
 class Scrap:

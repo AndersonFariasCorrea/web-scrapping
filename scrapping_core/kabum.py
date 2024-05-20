@@ -6,13 +6,13 @@ import json
 
 class Kabum:
     def __init__(self):
-        self.url = 'https://www.kabum.com.br/busca/'
+        self.url = 'https://www.kabum.com.br'
         self.contents = []
 
     def search(self, query):
         if not query:
             return False
-        res = requests.get(f"{self.url}{query}")
+        res = requests.get(f"{self.url}/busca/{query}")
         if res.status_code == 200:
             return {
                 'status': res.status_code,
