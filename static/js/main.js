@@ -1,33 +1,36 @@
 $(document).ready(function() {
     $("#searchButton").click(function() {
-        var selectedHardware = $("#hardwareSelect").val();
         var selectedSites = [];
 
         if ($("#kabumCheckbox").is(":checked")) {
             selectedSites.push("Kabum");
         }
-        if ($("#pichauCheckbox").is(":checked")) {
-            selectedSites.push("Pichau");
+        if ($("#OficinaDosBitsCheckbox").is(":checked")) {
+            selectedSites.push("OficinaDosBits");
         }
 
-        if (selectedHardware === null || selectedSites.length === 0) {
+        if (selectedSites.length === 0) {
             alert("Por favor, selecione um hardware e marque pelo menos um site.");
             return;
         }
 
-        $.getJSON("busca.json", function(data) {
+        var pesquisa = $("#modelSearch").val()
+
+        $.getJSON("/api", {"busca":pesquisa}, function(data) {
             $("#hardwareInfoBody").empty();
+            if(data[0]){
+                data = data[0];
+            }
 
             selectedSites.forEach(function(site) {
-                if (data[site] && data[site].itens) {
-                    data[site].itens.forEach(function(item) {
+                if (data[site] && data[site].items) {
+                    data[site].items.forEach(function(item) {
                         $("#hardwareInfoBody").append(
                             "<tr>" +
                             "<td>" + item.nome_item + "</td>" +
                             "<td>" + site + "</td>" +
                             "<td>" + item.valor_item + "</td>" +
-                            "<td>" + item.memoria_tamanho + "</td>" +
-                            "<td>" + item.memoria_tipo + "</td>" +
+                            "<td>" + item.valor_c_desconto + "</td>" +
                             "<td><a href='" + item.link + "' target='_blank'>Ver produto</a></td>" +
                             "</tr>"
                         );
