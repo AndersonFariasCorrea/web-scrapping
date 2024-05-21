@@ -9,22 +9,28 @@ $(document).ready(function() {
             selectedSites.push("OficinaDosBits");
         }
 
-        if (selectedSites.length === 0) {
-            alert("Por favor, selecione um hardware e marque pelo menos um site.");
-            return;
-        }
+        // if (selectedSites.length === 0) {
+        //     alert("Por favor, selecione um hardware e marque pelo menos um site.");
+        //     return;
+        // }
 
         var pesquisa = $("#modelSearch").val()
 
         $.getJSON("/api", {"busca":pesquisa}, function(data) {
             $("#hardwareInfoBody").empty();
-            if(data[0]){
-                data = data[0];
+
+            if (data.status && data.status > 200) {
+                alert(data.msg);
+                return;
             }
 
-            selectedSites.forEach(function(site) {
-                if (data[site] && data[site].items) {
-                    data[site].items.forEach(function(item) {
+            if(data[0]){
+                sites = data.map(el => Object.keys(el)[0]);
+            }
+
+            sites.forEach(function(site) {
+                if (data.filter(el => el[site])[0][site]) {
+                    data.filter(el => el[site])[0][site].items.forEach(function(item) {
                         $("#hardwareInfoBody").append(
                             "<tr>" +
                             "<td>" + item.nome_item + "</td>" +

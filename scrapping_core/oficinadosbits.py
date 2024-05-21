@@ -36,16 +36,5 @@ class Oficinadosbits:
 
     def __format_contents(self, content):
         if content is None or content == '':
-            return '{}'
-        else:
-            formatted_content = []
-            for product in content:
-                formatted_content.append({
-                    "nome_item": product['name'],
-                    "valor_item": product['price'],
-                    "valor_c_desconto": product['priceWithDiscount'],
-                    "description": product['description'],
-                    "link": f"{product.url}/produto/{product['code']}/{product['friendlyName']}"
-                })
-
-        return json.loads(content)
+            return []
+        return content
