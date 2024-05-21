@@ -32,17 +32,17 @@ $(document).ready(function() {
                 if (data.filter(el => el[site])[0][site]) {
                     data.filter(el => el[site])[0][site].items.forEach(function(item) {
                         $("#hardwareInfoBody").append(
-                            "<tr>" +
-                            "<td>" + item.nome_item + "</td>" +
-                            "<td>" + site + "</td>" +
-                            "<td>" + item.valor_item + "</td>" +
-                            "<td>" + item.valor_c_desconto + "</td>" +
-                            "<td><a href='" + item.link + "' target='_blank'>Ver produto</a></td>" +
-                            "</tr>"
+                            `<tr>
+                                <td>${site}</td>
+                                <td>${item.nome_item}</td>
+                                <td>${item.valor_item}</td>
+                                <td>${item.valor_c_desconto}</td>
+                                <td> <a href="${item.link}" target="_blank" title="comprar"><i class="fas fa-cart-arrow-down"></i></a></td>
+                            </tr>`
                         );
                     });
                 } else {
-                    alert("Erro ao buscar dados do site " + site);
+                    alert(`Erro ao buscar dados do site ${site}`);
                 }
             });
         }).fail(function(jqXHR, textStatus, errorThrown) {
